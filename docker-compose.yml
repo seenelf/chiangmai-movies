@@ -1,0 +1,38 @@
+version: '2'
+services:
+    web:
+        build:
+            context: ./
+            dockerfile: development/docker/nginx.docker
+        volumes:
+            - ./:/var/www
+        ports:
+            - "8080:80"
+        links:
+            - app
+    app:
+        build:
+            context: ./
+            dockerfile: development/docker/php7.docker
+        volumes:
+            - ./:/var/www
+
+    database:
+        image: mysql:5.7
+        environment:
+            - "MYSQL_DATABASE=chiangmai_movies"
+            - "MYSQL_ROOT_PASSWORD=password"
+        volumes:
+            # add database dump in the folder, docker will dump it into the db
+            - ./development/sql-dump:/docker-entrypoint-initdb.d
+            # keep database binary outside container
+            - ./development/sql-binary:/var/lib/mysql
+        ports:
+            - "33061:3306"
+
+    phpmyadmin:
+        image:  phpmyadmin/phpmyadmin
+        ports:
+            - "8081:80"
+        links:
+            - database:db
