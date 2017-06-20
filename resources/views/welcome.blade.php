@@ -76,7 +76,7 @@
                 </div>
 
                 <div class="links">
-                    <a href="https://booking.sfcinemacity.com/visPrintShowTimes.aspx?visCinemaID=9936&visLang=1" target="_blank">MAYA</a>
+                    <a href="https://www.sfcinemacity.com/showtime/cinema/9936" target="_blank">MAYA</a>
                     <a href="http://www.majorcineplex.com/en/booking2/search_showtime/cinema=40" target="_blank">Central Festival</a>
                     <a href="#">Central Airport</a>
                     <a href="https://booking.sfcinemacity.com/visPrintShowTimes.aspx?visCinemaID=9934&visLang=1" target="_blank">Promenada</a>
