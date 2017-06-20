@@ -6,10 +6,13 @@ services:
             dockerfile: development/docker/nginx.docker
         volumes:
             - ./:/var/www
-        ports:
-            - "8080:80"
         links:
             - app
+        expose:
+            - 8090
+        environment:
+            - VIRTUAL_HOST=lchiangmai-movies.seenelf.com
+            - VIRTUAL_PORT=8090
     app:
         build:
             context: ./
@@ -27,12 +30,18 @@ services:
             - ./development/sql-dump:/docker-entrypoint-initdb.d
             # keep database binary outside container
             - ./development/sql-binary:/var/lib/mysql
-        ports:
-            - "33061:3306"
 
     phpmyadmin:
         image:  phpmyadmin/phpmyadmin
-        ports:
-            - "8081:80"
         links:
             - database:db
+
+    nginx-proxy:
+        image: jwilder/nginx-proxy
+        container_name: nginx-proxy
+        ports:
+          - 80:80
+        volumes:
+          - /var/run/docker.sock:/tmp/docker.sock:ro
+        depends_on:
+          - web
