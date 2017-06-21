@@ -35,13 +35,7 @@ services:
         image:  phpmyadmin/phpmyadmin
         links:
             - database:db
-
-    nginx-proxy:
-        image: jwilder/nginx-proxy
-        container_name: nginx-proxy
-        ports:
-          - 80:80
-        volumes:
-          - /var/run/docker.sock:/tmp/docker.sock:ro
-        depends_on:
-          - web
+networks:
+    default:
+        external:
+            name: nginx_proxy
